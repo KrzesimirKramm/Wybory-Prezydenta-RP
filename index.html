@@ -242,6 +242,7 @@
 		
 		var czoom = 6;
 		var szoom = 6;
+		var tooltipThreshold = 8;
 		var zooms = [1,1.5,1.9,2.3,2.8];
 		var blend_modes = ['normal','normal','darken','multiply','multiply'];
 		
@@ -5949,7 +5950,7 @@
 				//data_saved = chart.data.datasets[0];
 		});
 		var lastZoom;
-		var tooltipThreshold = 8;
+		
 		function zoomToLabels(){
 			resetLabels([layer_Powiaty_Simplified_1]);
 			var zoom = map.getZoom();
