@@ -5933,7 +5933,12 @@
 				}
 				updateAnn();
 				chart.update();
-				
+				var zoom = map.getZoom();
+				if (zoom < tooltipThreshold+1){
+					$('path.stroke-polyline').css('mix-blend-mode', 'normal');
+				}else{
+					$('path.stroke-polyline').css('mix-blend-mode', 'multiply');
+				}
 				//options_saved = chart.options;
 				//data_saved = chart.data.datasets[0];
 		});
