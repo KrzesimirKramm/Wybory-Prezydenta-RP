@@ -1,0 +1,294 @@
+/*
+	 CSS-Tricks Example
+	 by Chris Coyier
+	 http://css-tricks.com
+*/
+
+/* { margin: 0; padding: 0; }
+body { font: 14px Georgia, serif; }*/
+
+h1 { 
+	width: 512px; 
+	margin: 0 auto;
+	padding: 20px 0;
+	color: #efd;
+}
+
+/*.group:before,
+.group:after {
+    content: "";
+    display: table;
+}
+.group:after {
+    clear: both;
+}
+.group {
+    zoom: 1;
+}*/
+
+ .tab-content{ 
+    	background: white; 
+    	/*min-height: 400px;*/
+    	height: 400px;
+		margin-left: -60px;
+		/*margin-top: -12px;*/
+		box-shadow: 4px 4px 3px rgba(80, 128, 80, 0.25), -4px 4px 3px rgba(80, 128, 80, 0.25);
+		
+    }
+	#tab2 h5:hover , #tab3 h5:hover , #tab4 h5:hover {
+		color: #f44 !important;
+		cursor: pointer;
+		/*background: black; */
+	}
+    
+    .tabs { 
+    	list-style: none; 
+    	/*margin: 60px auto 0; */
+		padding-left: 60px;
+		margin-left: auto;
+		margin-right: auto;
+    	width: 596px;
+		display: inline-block;
+    }
+		.tabs li { 
+		  /* Makes a horizontal row */
+			float: left; 
+			
+			/* So the psueudo elements can be
+			   abs. positioned inside */
+			position: relative; 
+		}
+		.tabs li>a { 
+		  /* Make them block level
+		     and only as wide as they need */
+		  float: left; 
+		  padding: 8px 24px; 
+		  text-decoration: none;
+		  font-weight: bold;
+		  /*box-shadow: 0 1px 3px rgba(255,255,255,0.12), 0 1px 2px rgba(255,255,255,0.24);*/
+		  box-shadow: inset 0 -2px 5px rgba(255,255,255,0.2);
+		  /*text-shadow: rgba(255,255,255,0.4) 2px 0px 0px, rgba(255,255,255,0.4) 1.75px 0.966667px 0px, rgba(255,255,255,0.4) 1.08333px 1.68333px 0px, rgba(255,255,255,0.4) 0.133333px 2px 0px, rgba(255,255,255,0.4) -0.833333px 1.81667px 0px, rgba(255,255,255,0.4) -1.6px 1.2px 0px, rgba(255,255,255,0.4) -1.98333px 0.283333px 0px, rgba(255,255,255,0.4) -1.86667px -0.7px 0px, rgba(255,255,255,0.4) -1.3px -1.51667px 0px, rgba(255,255,255,0.4) -0.416667px -1.95px 0px, rgba(255,255,255,0.4) 0.566667px -1.91667px 0px, rgba(255,255,255,0.4) 1.41667px -1.41667px 0px, rgba(255,255,255,0.4) 1.91667px -0.566667px 0px;*/
+		  /*text-shadow: -1px 0 #132, 0 1px #132, 1px 0 #132, 0 -1px #132;*/
+		  /* Default colors */ 
+		  color: fff;
+		  /*background: #ddc385; */
+		  background: #4d9221; 
+		  /* Only round the top corners */
+		  -webkit-border-top-left-radius: 15px;
+		  -webkit-border-top-right-radius: 15px;
+		  -moz-border-radius-topleft: 15px;
+		  -moz-border-radius-topright: 15px;
+		  border-top-left-radius: 15px;
+		  border-top-right-radius: 15px; 
+		}
+		.tabs .active {
+		  /* Highest, active tab is on top */
+		  z-index: 813;
+		}
+		.tabs .active a { 
+		  /* Colors when tab is active */
+		  background: white; 
+		  color: black; 
+		}
+		.tabs li:before, .tabs li:after, 
+		.tabs li a:before, .tabs li a:after {
+		  /* All pseudo elements are 
+		     abs. positioned and on bottom */
+		  position: absolute;
+		  bottom: 0;
+		}
+		/* Only the first, last, and active
+		   tabs need pseudo elements at all */
+		.tabs li:last-child:after,   .tabs li:last-child a:after,
+		.tabs li:first-child:before, .tabs li:first-child a:before,
+		.tabs .active:after,   .tabs .active:before, 
+		.tabs .active a:after, .tabs .active a:before {
+		  content: "";
+		}
+		.tabs .active:before, .tabs .active:after {
+		  background: white; 
+		  
+		  /* Squares below circles */
+		  z-index: 811;
+		}
+		/* Squares */
+		.tabs li:before, .tabs li:after {
+		  /*background: #4d9221;*/
+		  background:#7fbc41;
+		  width: 10px;
+		  height: 10px;
+		}
+		.tabs li:before {
+		  left: -10px;      
+		}
+		.tabs li:after { 
+		  right: -10px;
+		}
+		/* Circles */
+		.tabs li a:after, .tabs li a:before {
+		  width: 20px; 
+		  height: 20px;
+		  /* Circles are circular */
+		  -webkit-border-radius: 10px;
+		  -moz-border-radius:    10px;
+		  border-radius:         10px;
+		  /*background: #222;*/
+		  background: #4d9221;
+		  /*background:#7fbc41;*/
+		  
+		  /* Circles over squares */
+		  z-index: 812;
+		}
+		.tabs .active a:after, .tabs .active a:before {
+		  /*background: #ddc385;*/
+		  /*background: #4d9221;*/
+		  /*background:#7fbc41;*/
+		}
+		/* First and last tabs have different
+		   outside color needs */
+		.tabs li:first-child.active a:before,
+		.tabs li:last-child.active a:after {
+		  background: #222;
+		}
+		.tabs li a:before {
+		  left: -20px;
+		}
+		.tabs li a:after {
+		  right: -20px;
+		}
+		
+		/*.tabs {
+			width:100%;
+			display:inline-block;
+		}*/
+
+		/*----- Tab Links -----*/
+		/* Clearfix */
+		.tab-links:after {
+			display:block;
+			clear:both;
+			content:'';
+		}
+
+		.tab-links li {
+			/*margin:0px 5px;*/
+			float:left;
+			list-style:none;
+		}
+
+		.tab-links a {
+			/*padding:9px 15px;*/
+			display:inline-block;
+			/*border-radius:3px 3px 0px 0px;*/
+			background:#4d9221;
+			font-size:16px;
+			font-weight:600;
+			/*color:#4c4c4c;*/
+			color:#fff;
+			transition:all linear 0.15s;
+		}
+
+		.tab-links a:hover {
+			background:#7fbc41;
+			text-decoration:none;
+			/*transition:all linear 0.15s;*/
+		}
+		
+		/*.tab-links:hover  a:hover::after,
+		.tab-links:hover  a:hover::before{
+			background:#4d9221;
+			text-decoration:none;
+			transition:all linear 0.15s;
+		}*/
+		/*.tab-links:hover li.active a:after {
+			background:#7fbc41;
+			text-decoration:none;
+			transition:all linear 0.15s;
+		}*/
+		/*.tab-links:hover li:hover  ~  li.active a:after {
+			background:#4d9221;
+			text-decoration:none;
+			transition:all linear 0.15s;
+		}*/
+		/**/
+		/*.tab-links:hover li.active +  li  a:hover{
+			background:#7fbc41;
+			text-decoration:none;
+			transition:all linear 0.15s;
+		}
+		.tab-links:hover li:hover + li.active a:before{
+			background:#7fbc41;
+			text-decoration:none;
+			transition:all linear 0.15s;
+		}
+		
+		.tab-links:hover  .active:hover a:after,
+		.tab-links:hover  .active:hover a:before{
+			background:#4d9221;
+			text-decoration:none;
+			transition:all linear 0.15s;
+		}*/
+		.tab-links li:last-of-type a:after,
+		.tab-links li:first-of-type a:before{
+			background:#efd !important;
+			text-decoration:none;
+		}
+		/*.tab-links:hover  li:last-of-type a:after,
+		.tab-links:hover li:first-of-type a:before{
+			background:#222;
+			text-decoration:none;
+		}*/
+		
+		.tab-links:hover  li:hover ~ li:last-of-type a:after{
+			background:#efd;
+			text-decoration:none;
+		}
+		
+		
+		
+		li.active a, li.active a:hover {
+			background:#fff;
+			/*color:#4c4c4c;*/
+			color:#000;
+		}
+
+		/*----- Content of Tabs -----*/
+		/*.tab-content {
+			padding:15px;
+			border-radius:3px;
+			box-shadow:-1px 1px 1px rgba(0,0,0,0.15);
+			background:#fff;
+		}*/
+
+		.tab {
+			display:none;
+			max-height: 400px;
+			overflow: auto;
+			border-radius: 8px;
+			width: 656px;
+		}
+
+		.tab.active {
+			/*margin-left: -60px;*/
+			display:block;
+		}
+		
+		.tab-links {
+		  /*display: inline-block;*/
+		}
+
+		.tab-links::after {
+		  content:"";
+		  /*display: inline-block;
+		  background-color: #ff5544;*/
+		}
+
+		.tab-links.extra_stuff::after {
+		  content:"PPPP";
+		  /*background-color: #0088cc;*/
+		  background:#7fbc41;
+		}
+		#tab1{
+			margin-left: auto;
+			margin-right: auto;
+		}
