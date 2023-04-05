@@ -3260,12 +3260,24 @@
 			filtered = true;
 			console.log('search ' + filtered);
 			//map.removeLayer(this._markerSearch)
-			e.layer.setStyle({color: 'rgba(255,255,255,0.5)', weight: '8', /*dashArray: '16, 16',*/  lineCap: 'round', lineJoin: 'round',fillColor: 'rgba(255,0,0,0.9)',});
-			e.layer.bringToFront();
-			//resetLabels([layer_Powiaty_Simplified_1]);
+			//e.layer.setStyle({color: 'rgba(255,255,255,0.5)', weight: '8', lineCap: 'round', lineJoin: 'round',fillColor: 'rgba(255,0,0,0.9)',});
+			/*e.layer.bringToFront();
+			layer_Powiaty_Simplified_1.eachLayer(function(layer) {
+				layer.closeTooltip();
+				layer.openTooltip(lab_centers[i]);
+				i++;
+			});
+			resetLabels([layer_Powiaty_Simplified_1]);*/
 			//map.getPane('labels').style.display = 'inline-block';
-			if(e.layer._popup)
+			setTimeout(function () {
+				adm_clicked = false;
+				//resetLabels([layer_Powiaty_Simplified_2]);
+				//map.getPane('labels').style.display = 'inline-block';
+				//map.getPane('labels').style['text-align'] = 'center';
 				e.layer.openPopup();
+				//resetLabels([layer_Powiaty_Simplified_1]);
+				zoomToLabels();
+			},0);
 			//https://bdot10k.geoportal.gov.pl/#showLayersList&1618582473368
 		}).on('search:collapsed', function(e) {
 
@@ -3287,7 +3299,7 @@
 			
 			//var p = layer.getBounds().getCenter();
 			
-			lbl[i] = layer.bindTooltip((label_Powiaty_Simplified_1_eval_expression(context) !== null?String('<div style="color: #fff; font-size: 8pt; font-weight: bold; box-shadow: 0 0 15px rgba(0,0,0,0.25); text-align: center; text-shadow: rgba(80,80,80,0.75) 2px 0px 0px, rgba(80,80,80,0.75) 1.75px 0.966667px 0px, rgba(80,80,80,0.75) 1.08333px 1.68333px 0px, rgba(80,80,80,0.75) 0.133333px 2px 0px, rgba(80,80,80,0.75) -0.833333px 1.81667px 0px, rgba(80,80,80,0.75) -1.6px 1.2px 0px, rgba(80,80,80,0.75) -1.98333px 0.283333px 0px, rgba(80,80,80,0.75) -1.86667px -0.7px 0px, rgba(80,80,80,0.75) -1.3px -1.51667px 0px, rgba(80,80,80,0.75) -0.416667px -1.95px 0px, rgba(80,80,80,0.75) 0.566667px -1.91667px 0px, rgba(80,80,80,0.75) 1.41667px -1.41667px 0px, rgba(80,80,80,0.75) 1.91667px -0.566667px 0px; font-family: \'MS Shell Dlg 2\', sans-serif">' + label_Powiaty_Simplified_1_eval_expression(context)) + '</div>':''), {pane: 'labels', permanent: false, offset: [0, 0], className: 'css_Powiaty_Simplified_1', direction:"center", opacity:0.9}).openTooltip(lab_centers[i]);
+			lbl[i] = layer.bindTooltip((label_Powiaty_Simplified_1_eval_expression(context) !== null?String('<div style="color: #fff; font-size: 8pt; font-weight: bold; box-shadow: 0 0 15px rgba(0,0,0,0.25); text-align: center; text-shadow: rgba(80,80,80,0.75) 2px 0px 0px, rgba(80,80,80,0.75) 1.75px 0.966667px 0px, rgba(80,80,80,0.75) 1.08333px 1.68333px 0px, rgba(80,80,80,0.75) 0.133333px 2px 0px, rgba(80,80,80,0.75) -0.833333px 1.81667px 0px, rgba(80,80,80,0.75) -1.6px 1.2px 0px, rgba(80,80,80,0.75) -1.98333px 0.283333px 0px, rgba(80,80,80,0.75) -1.86667px -0.7px 0px, rgba(80,80,80,0.75) -1.3px -1.51667px 0px, rgba(80,80,80,0.75) -0.416667px -1.95px 0px, rgba(80,80,80,0.75) 0.566667px -1.91667px 0px, rgba(80,80,80,0.75) 1.41667px -1.41667px 0px, rgba(80,80,80,0.75) 1.91667px -0.566667px 0px; font-family: \'MS Shell Dlg 2\', sans-serif">' + label_Powiaty_Simplified_1_eval_expression(context)) + '</div>':''), {pane: 'labels', permanent: true, offset: [0, 0], className: 'css_Powiaty_Simplified_1', direction:"center", opacity:0.9}).openTooltip(lab_centers[i]);
             labels.push(layer);
             totalMarkers += 1;
             layer.added = true;
@@ -3977,7 +3989,7 @@
 			
 			block_cl_pop = true;
 			
-			//////alert('manual_popup: '+manual_popup);
+			
 			if (manual_popup){
 			//czoom = map.getZoom();
 			chart.data.datasets[0].data = [];
@@ -4019,7 +4031,7 @@
 				console.log($select);
 				console.log($select.val());
 				//if ($select.val()=='Polska'){
-					//console.log("Tak - Polska!");
+					//console.log("Tak - Polska!");;
 				var wind = pop_kod.substring(0,2)/2+1;
 				if (wind!=cind){
 					$('#filter :nth-child('+wind+')').prop('selected', true).change();
@@ -4040,7 +4052,6 @@
 				polygon_clicked = false;
 				console.log("iii");
 				//subb = 0;
-				console.log($('#subfilter :nth-child('+pind+')'));
 				//map.fitBounds(pow_ats[kod.substring(0,4)].getBounds(), {paddingBottomRight: [400, 0], paddingTopLeft: [80, 0]});
 				cind=wind;
 				polind =0;
@@ -4103,6 +4114,7 @@
 			chart.update();
 			block_cl_pop = false;
 			manual_popup = true;
+			
 			$(document).ready(function ()	{
 				//$('leaflet-popup  leaflet-zoom-animated').ready(function ()	{
 		//setTimeout(function(){ console.log("Czekamy..."); }, 1000);
@@ -4222,6 +4234,7 @@
 			
 			//json_Demografia.features.
 			//var curr = e.popup._source.feature.properties.JPT_KOD_JE;
+			
 			for (i=0;i<9;i++){
 				var len = WEkod[PWE][i].length;
 				wpopupContent[Math.floor(i/3)].push('<div style="float:left; padding: 2px; width: 200px;"><table class = "tabela" id = "fixedheight"><thead>');
@@ -5461,13 +5474,13 @@
 			//setTimeout(function () {
 			//temp_zoomed = manually_zoomed;
 			$(document).ready(function (){
-			if (layers[current_KOD].isPopupOpen()){
-				var px = map.project(e.target._popup._latlng); // find the pixel location on the map where the popup anchor is
-				px.y -= e.target._popup._container.clientHeight/2+32; // find the height of the popup container, divide by 2, subtract from the Y axis of marker location
-				px.x += 128;
-				map.panTo(map.unproject(px),{animate: true, duration: 0.8}); // pan to new center
-				console.log("Panned center");
-			}
+				if (layers[current_KOD].isPopupOpen()){
+					var px = map.project(e.target._popup._latlng); // find the pixel location on the map where the popup anchor is
+					px.y -= e.target._popup._container.clientHeight/2+32; // find the height of the popup container, divide by 2, subtract from the Y axis of marker location
+					px.x += 128;
+					map.panTo(map.unproject(px),{animate: true, duration: 0.8}); // pan to new center
+					console.log("Panned center");
+				}				
 			});
 			/*var zoom = map.getZoom();
 			if (zoom < tooltipThreshold+1){
