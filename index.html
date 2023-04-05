@@ -914,7 +914,7 @@
 			opacity: 1
 		});
 		szoom = map.getZoom();
-		var stripes = new L.StripePattern({height:9, weight: 1, spaceWeight: 2, color: '#c22', opacity: 0.4, spaceColor: '#caa', spaceOpacity: 0.2, angle: 45});
+		var stripes = new L.StripePattern({height:9, weight: 1, spaceWeight: 2, color: '#a22', opacity: 0.32, spaceColor: '#caa', spaceOpacity: 0.2, angle: 45});
         stripes.addTo(map);
 		var patt_blank = new L.StripePattern({opacity: 0.0, spaceOpacity: 0.0});
 		patt_blank.addTo(map);
@@ -3262,7 +3262,7 @@
 			//map.removeLayer(this._markerSearch)
 			e.layer.setStyle({color: 'rgba(255,255,255,0.5)', weight: '8', /*dashArray: '16, 16',*/  lineCap: 'round', lineJoin: 'round',fillColor: 'rgba(255,0,0,0.9)',});
 			e.layer.bringToFront();
-			resetLabels([layer_Powiaty_Simplified_1]);
+			//resetLabels([layer_Powiaty_Simplified_1]);
 			//map.getPane('labels').style.display = 'inline-block';
 			if(e.layer._popup)
 				e.layer.openPopup();
@@ -3277,6 +3277,7 @@
 		map.addControl( searchControl );
 		
 		var i = 0;
+		var lbl = [];
 
         layer_Powiaty_Simplified_1.eachLayer(function(layer) {
             var context = {
@@ -3286,7 +3287,7 @@
 			
 			//var p = layer.getBounds().getCenter();
 			
-			layer.bindTooltip((label_Powiaty_Simplified_1_eval_expression(context) !== null?String('<div style="color: #fff; font-size: 8pt; font-weight: bold; box-shadow: 0 0 15px rgba(0,0,0,0.25); text-align: center; text-shadow: rgba(80,80,80,0.75) 2px 0px 0px, rgba(80,80,80,0.75) 1.75px 0.966667px 0px, rgba(80,80,80,0.75) 1.08333px 1.68333px 0px, rgba(80,80,80,0.75) 0.133333px 2px 0px, rgba(80,80,80,0.75) -0.833333px 1.81667px 0px, rgba(80,80,80,0.75) -1.6px 1.2px 0px, rgba(80,80,80,0.75) -1.98333px 0.283333px 0px, rgba(80,80,80,0.75) -1.86667px -0.7px 0px, rgba(80,80,80,0.75) -1.3px -1.51667px 0px, rgba(80,80,80,0.75) -0.416667px -1.95px 0px, rgba(80,80,80,0.75) 0.566667px -1.91667px 0px, rgba(80,80,80,0.75) 1.41667px -1.41667px 0px, rgba(80,80,80,0.75) 1.91667px -0.566667px 0px; font-family: \'MS Shell Dlg 2\', sans-serif">' + label_Powiaty_Simplified_1_eval_expression(context)) + '</div>':''), {pane: 'labels', permanent: true, offset: [0, 0], className: 'css_Powiaty_Simplified_1', direction:"center", opacity:1.0}).openTooltip(lab_centers[i]);
+			lbl[i] = layer.bindTooltip((label_Powiaty_Simplified_1_eval_expression(context) !== null?String('<div style="color: #fff; font-size: 8pt; font-weight: bold; box-shadow: 0 0 15px rgba(0,0,0,0.25); text-align: center; text-shadow: rgba(80,80,80,0.75) 2px 0px 0px, rgba(80,80,80,0.75) 1.75px 0.966667px 0px, rgba(80,80,80,0.75) 1.08333px 1.68333px 0px, rgba(80,80,80,0.75) 0.133333px 2px 0px, rgba(80,80,80,0.75) -0.833333px 1.81667px 0px, rgba(80,80,80,0.75) -1.6px 1.2px 0px, rgba(80,80,80,0.75) -1.98333px 0.283333px 0px, rgba(80,80,80,0.75) -1.86667px -0.7px 0px, rgba(80,80,80,0.75) -1.3px -1.51667px 0px, rgba(80,80,80,0.75) -0.416667px -1.95px 0px, rgba(80,80,80,0.75) 0.566667px -1.91667px 0px, rgba(80,80,80,0.75) 1.41667px -1.41667px 0px, rgba(80,80,80,0.75) 1.91667px -0.566667px 0px; font-family: \'MS Shell Dlg 2\', sans-serif">' + label_Powiaty_Simplified_1_eval_expression(context)) + '</div>':''), {pane: 'labels', permanent: false, offset: [0, 0], className: 'css_Powiaty_Simplified_1', direction:"center", opacity:0.9}).openTooltip(lab_centers[i]);
             labels.push(layer);
             totalMarkers += 1;
             layer.added = true;
@@ -3938,12 +3939,13 @@
 					already_filtered = true;
 			}
 			//$(document).ready(function (){
-			var zoom = map.getZoom();
+			/*var zoom = map.getZoom();
 			if (zoom < tooltipThreshold+1){
 				$('path.stroke-polyline').css('mix-blend-mode', 'normal');
 			}else{
 				$('path.stroke-polyline').css('mix-blend-mode', 'multiply');
-			}
+			}*/
+			//resetLabels([layer_Powiaty_Simplified_1]);
 			updateAnn();
 			chart.update();
 			//});
@@ -5467,12 +5469,12 @@
 				console.log("Panned center");
 			}
 			});
-			var zoom = map.getZoom();
+			/*var zoom = map.getZoom();
 			if (zoom < tooltipThreshold+1){
 				$('path.stroke-polyline').css('mix-blend-mode', 'normal');
 			}else{
 				$('path.stroke-polyline').css('mix-blend-mode', 'multiply');
-			}
+			}*/
 			//////alert("End of panning - manually_zoomed: " + manually_zoomed + " \ntemp_zoomed: " + temp_zoomed);
 			//manually_zoomed = temp_zoomed;
 			//}, 250);
@@ -5949,19 +5951,19 @@
 				}
 				updateAnn();
 				chart.update();
-				var zoom = map.getZoom();
+				/*var zoom = map.getZoom();
 				if (zoom < tooltipThreshold+1){
 					$('path.stroke-polyline').css('mix-blend-mode', 'normal');
 				}else{
 					$('path.stroke-polyline').css('mix-blend-mode', 'multiply');
-				}
+				}*/
 				//options_saved = chart.options;
 				//data_saved = chart.data.datasets[0];
 		});
 		var lastZoom;
 		
 		function zoomToLabels(){
-			resetLabels([layer_Powiaty_Simplified_1]);
+			
 			var zoom = map.getZoom();
 			layer_10.setStyle({color: 'rgba(64,64,64,'+(0.25+(zoom-5)*0.1)+')'});
 			layer_15.setStyle({color: 'rgba(64,64,64,'+(0.25+(zoom-5)*0.1)+')'});
@@ -5989,10 +5991,17 @@
 			//}
 			selected = false;
 			lastZoom = zoom;
-			/*setTimeout(function () {
-				resetLabels([layer_Powiaty_Simplified_1]);
-			},0);*/
 			
+			var i = 0;
+			setTimeout(function () {
+				layer_Powiaty_Simplified_1.eachLayer(function(layer) {
+					var slbl = lbl[i].getTooltip();
+					slbl.setLatLng(lab_centers[i]);
+					i++;
+				});
+				resetLabels([layer_Powiaty_Simplified_1]);
+				
+			},50);
 		}
 
 		/*map.on('zoomend', function() {
@@ -6075,6 +6084,7 @@
 					zooming = false;
 				}, 500);
 			}, 0);
+			
 			block_centering = false;
 			already_selected = false;
 			popup_close_first_clicked = false;
