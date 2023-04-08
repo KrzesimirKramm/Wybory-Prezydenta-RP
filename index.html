@@ -245,9 +245,12 @@
 		
 		var czoom = 6;
 		var szoom = 6;
-		var tooltipThreshold = 8;
+		var tooltipThreshold = 9;
 		var zooms = [1,1.5,1.9,2.3,2.8];
 		var blend_modes = ['normal','normal','darken','multiply','multiply'];
+		
+		var ch_order1 = [2,2,1,1,3,3];
+		var ch_order2 = [1,3,2,3,2,1];
 		
 		var jedn = '%';
 		var sred = 'Średnia: ';
@@ -1240,6 +1243,9 @@
 		l8 = layer_2015c._leaflet_id;
 		l9 = layer_2010c._leaflet_id;
 		
+		var layer_codes = [l1, l2, l3, l4, l5, l6, l7, l8, l9];
+		
+		var country_results = [25.68,28.97,45.34, 28.10,26.42,45.48, 34.49,33.10,32.41, 2.42,-2.55,0.14, 6.39,6.68,-13.07, 8.81,4.13,-12.93];
 		
         //bounds_group.addLayer(layer_Gminy_0
         //map.addLayer(layer_Gminy_0);
@@ -1807,7 +1813,7 @@
 
 		var initialChartData = {
 			datasets: [{
-			  label: 'Wybrana gmina',
+			  label: 'Wybr. gmina',
 			  data: [],
 			  pointRadius: 6.4,
 			  pointBorderColor: 'rgba(255, 0, 0, 1.0)',
@@ -1815,8 +1821,8 @@
 			  pointHoverRadius: 5.6,
 			  pointBackgroundColor: pointFBackgroundColors
 			},{
-			  label: 'Filtr gmin',
-			  title: 'Wybory Prezydenta RP',
+			  label: 'Filtr',
+			  //title: 'Wybory Prezydenta RP',
 			  // the data values are empty at this moment
 			  // and will be updated dynamically below
 			  data: [],
@@ -1830,24 +1836,29 @@
 			  data: [],
 			  pointBorderColor: pointBBorderColors,
 			  pointBackgroundColor: pointBBackgroundColors
+			},{
+			  label: 'Wynik (kraj)',
+			  hidden: true,
+			  data: [],
+			  fill:false
 			}]
 		  };
 
-			function average(a) {
-			  //const values = ctx.chart.data.datasets[0].data;
-			  const values = scatterPlotDataArray;
-			  console.log(values[0].x);
-			  var ret  = 0/*values.reduce((a, b) => a.x + b.x, 0) / values.length*/;
-			  //console.log(ret);
-			 for (i=0;i<values.length;i++){
-				if (a==1){
-					ret+=values[i].x;
-				}else{
-					ret+=values[i].y;
-				}
-			  }
-			  return ret/values.length;
+		function average(a) {
+		  //const values = ctx.chart.data.datasets[0].data;
+		  const values = scatterPlotDataArray;
+		  console.log(values[0].x);
+		  var ret  = 0/*values.reduce((a, b) => a.x + b.x, 0) / values.length*/;
+		  //console.log(ret);
+		 for (i=0;i<values.length;i++){
+			if (a==1){
+				ret+=values[i].x;
+			}else{
+				ret+=values[i].y;
 			}
+		  }
+		  return ret/values.length;
+		}
 
 		  var chartOptions = {
 			scales: {
@@ -1913,6 +1924,40 @@
 					fontColor: 'rgb(96,0,0)',
 					position: 'right'
 				  }
+				},
+				{
+				  mode: 'vertical',
+				  type: 'line',
+				  scaleID: 'x-axis-1',
+				  value: 28.97,
+				  borderColor: 'rgba(0,0,0,0.0',
+				  borderDash: [6, 6],
+				  borderWidth: 4,
+				  label: {
+					enabled: false,
+					content:  'Wynik (kraj): ' + (28.97).toFixed(2)+jedn,
+					backgroundColor: 'rgba(224,224,128,0.5)',
+					fontSize: 10,
+					fontColor: 'rgb(0,96,0)',
+					position: 'bottom'
+				  }
+				},
+				{
+				  mode: 'horizontal',
+				  type: 'line',
+				  scaleID: 'y-axis-1',
+				  value: 25.68,
+				  borderColor: 'rgba(0,0,0,0.0',
+				  borderDash: [6, 6],
+				  borderWidth: 4,
+				  label: {
+					enabled: false,
+					content: 'Wynik (kraj): ' + (25.68).toFixed(2)+jedn,
+					backgroundColor: 'rgba(224,224,128,0.5)',
+					fontSize: 10,
+					fontColor: 'rgb(0,96,0)',
+					position: 'left'
+				  }
 				}]
 			},
 			
@@ -1931,14 +1976,21 @@
 					//ci.options.annotation.annotations[1].enabled = false;
 						// See controller.isDatasetVisible comment
 					//meta.hidden = meta.hidden === null ? !ci.data.datasets[index].hidden : null;
+					var click_counter = true;
 					if (meta.hidden === null){
 						if (index==2){
 							ci.options.annotation.annotations[0].borderColor = 'rgba(0,0,0,0.0';
 							ci.options.annotation.annotations[0].label.enabled = false;
 							ci.options.annotation.annotations[1].borderColor = 'rgba(0,0,0,0.0';
 							ci.options.annotation.annotations[1].label.enabled = false;
+						}else if (index==3){
+							ci.options.annotation.annotations[2].borderColor = 'rgba(66, 255, 99, 0.6)';
+							ci.options.annotation.annotations[2].label.enabled = true;
+							ci.options.annotation.annotations[3].borderColor = 'rgba(66, 255, 99, 0.6)';
+							ci.options.annotation.annotations[3].label.enabled = true;
 						}
 						meta.hidden = !ci.data.datasets[index].hidden;
+						
 					}else{
 						if (index==2){
 							if (layer_code!=l7&&layer_code!=l8&&layer_code!=l9||year!=0){
@@ -1946,7 +1998,13 @@
 								ci.options.annotation.annotations[0].label.enabled = true;
 								ci.options.annotation.annotations[1].borderColor = 'rgba(255, 99, 132, 0.5)';
 								ci.options.annotation.annotations[1].label.enabled = true;
+								
 							}
+						}else if (index==3){
+							ci.options.annotation.annotations[2].borderColor = 'rgba(0,0,0,0.0';
+							ci.options.annotation.annotations[2].label.enabled = false;
+							ci.options.annotation.annotations[3].borderColor = 'rgba(0,0,0,0.0';
+							ci.options.annotation.annotations[3].label.enabled = false;
 						}
 						meta.hidden = null;
 					}
@@ -1971,7 +2029,10 @@
 					color: 'rgb(99, 99, 132)'
 				}]*/
 				labels:{
-					boxWidth: 20
+					boxWidth: 8,
+					font: {
+                        size: 2
+                    }
 				}
 			},
 			tooltips: {
@@ -2218,6 +2279,18 @@
 			chart.options.annotation.annotations[0].label.content = sred + average(1).toFixed(2)+jedn;
 			chart.options.annotation.annotations[1].value = average(2);
 			chart.options.annotation.annotations[1].label.content = sred + average(2).toFixed(2)+jedn;
+			var layer_index = layer_codes.indexOf(layer_code);
+			layer_index = (layer_index>=6)?(layer_index-3):layer_index;
+			layer_index = (year>0)?(year-10)/5:layer_index;
+			var tsel = $changer.prop('selectedIndex');
+			//alert(tsel);
+			var v2 = country_results[layer_index*3+ch_order2[tsel]-1];
+			var v1 = country_results[layer_index*3+ch_order1[tsel]-1];
+			var lab_text = (layer_index>=3)?'Zmiana (kraj): ':'Wynik (kraj):';
+			chart.options.annotation.annotations[2].value = v1;
+			chart.options.annotation.annotations[2].label.content = lab_text + v1.toFixed(2)+jedn;
+			chart.options.annotation.annotations[3].value = v2;
+			chart.options.annotation.annotations[3].label.content = lab_text + v2.toFixed(2)+jedn;
 		 }
 		 function switchAnn(a){
 			if (a==0||chart.legend.legendItems[2].hidden==true){
@@ -2225,7 +2298,12 @@
 				chart.options.annotation.annotations[0].label.enabled = false;
 				chart.options.annotation.annotations[1].borderColor = 'rgba(0,0,0,0.0';
 				chart.options.annotation.annotations[1].label.enabled = false;
-			}else{
+			}/*else if (a==0||chart.legend.legendItems[3].hidden==true){
+				chart.options.annotation.annotations[2].borderColor = 'rgba(0,0,0,0.0';
+				chart.options.annotation.annotations[2].label.enabled = false;
+				chart.options.annotation.annotations[3].borderColor = 'rgba(0,0,0,0.0';
+				chart.options.annotation.annotations[3].label.enabled = false;
+			}*/else{
 				chart.options.annotation.annotations[0].borderColor = 'rgba(255, 99, 132, 0.5)';
 				chart.options.annotation.annotations[0].label.enabled = true;
 				chart.options.annotation.annotations[1].borderColor = 'rgba(255, 99, 132, 0.5)';
@@ -5996,7 +6074,7 @@
 					map.getPane('labels').style.display = 'inline-block';
 					map.getPane('labels').style['text-align'] = 'center';
 				}
-				if (zoom < tooltipThreshold+1){
+				if (zoom < tooltipThreshold){
 					$('path.stroke-polyline').css('mix-blend-mode', 'normal');
 				}else{
 					$('path.stroke-polyline').css('mix-blend-mode', 'multiply');
