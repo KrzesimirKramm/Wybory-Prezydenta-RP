@@ -1837,7 +1837,7 @@
 			  pointBorderColor: pointBBorderColors,
 			  pointBackgroundColor: pointBBackgroundColors
 			},{
-			  label: 'Wynik (kraj)',
+			  label: 'Wyniki (kraj)',
 			  hidden: true,
 			  data: [],
 			  fill:false
@@ -1935,7 +1935,7 @@
 				  borderWidth: 4,
 				  label: {
 					enabled: false,
-					content:  'Wynik (kraj): ' + (28.97).toFixed(2)+jedn,
+					content:  'Udział (kraj): ' + (28.97).toFixed(2)+jedn,
 					backgroundColor: 'rgba(224,224,128,0.5)',
 					fontSize: 10,
 					fontColor: 'rgb(0,96,0)',
@@ -1952,7 +1952,7 @@
 				  borderWidth: 4,
 				  label: {
 					enabled: false,
-					content: 'Wynik (kraj): ' + (25.68).toFixed(2)+jedn,
+					content: 'Udział (kraj): ' + (25.68).toFixed(2)+jedn,
 					backgroundColor: 'rgba(224,224,128,0.5)',
 					fontSize: 10,
 					fontColor: 'rgb(0,96,0)',
@@ -2286,7 +2286,8 @@
 			//alert(tsel);
 			var v2 = country_results[layer_index*3+ch_order2[tsel]-1];
 			var v1 = country_results[layer_index*3+ch_order1[tsel]-1];
-			var lab_text = (layer_index>=3)?'Zmiana (kraj): ':'Wynik (kraj):';
+			var lab_text = (layer_index>=3)?'Zmiana (kraj): ':'Udział (kraj): ';
+			chart.data.datasets[3].label = (layer_index>=3)?'Zmiana (kraj)':'Wyniki (kraj):';
 			chart.options.annotation.annotations[2].value = v1;
 			chart.options.annotation.annotations[2].label.content = lab_text + v1.toFixed(2)+jedn;
 			chart.options.annotation.annotations[3].value = v2;
@@ -3377,7 +3378,7 @@
 			
 			//var p = layer.getBounds().getCenter();
 			
-			lbl[i] = layer.bindTooltip((label_Powiaty_Simplified_1_eval_expression(context) !== null?String('<div style="color: #fff; font-size: 8pt; font-weight: bold; box-shadow: 0 0 15px rgba(0,0,0,0.25); text-align: center; text-shadow: rgba(80,80,80,0.75) 2px 0px 0px, rgba(80,80,80,0.75) 1.75px 0.966667px 0px, rgba(80,80,80,0.75) 1.08333px 1.68333px 0px, rgba(80,80,80,0.75) 0.133333px 2px 0px, rgba(80,80,80,0.75) -0.833333px 1.81667px 0px, rgba(80,80,80,0.75) -1.6px 1.2px 0px, rgba(80,80,80,0.75) -1.98333px 0.283333px 0px, rgba(80,80,80,0.75) -1.86667px -0.7px 0px, rgba(80,80,80,0.75) -1.3px -1.51667px 0px, rgba(80,80,80,0.75) -0.416667px -1.95px 0px, rgba(80,80,80,0.75) 0.566667px -1.91667px 0px, rgba(80,80,80,0.75) 1.41667px -1.41667px 0px, rgba(80,80,80,0.75) 1.91667px -0.566667px 0px; font-family: \'MS Shell Dlg 2\', sans-serif">' + label_Powiaty_Simplified_1_eval_expression(context)) + '</div>':''), {pane: 'labels', permanent: true, offset: [0, 0], className: 'css_Powiaty_Simplified_1', direction:"center", opacity:0.9}).openTooltip(lab_centers[i]);
+			lbl[i] = layer.bindTooltip((label_Powiaty_Simplified_1_eval_expression(context) !== null?String('<div style="color: #fff; font-size: 8.5pt; font-weight: bold; box-shadow: 0 0 15px rgba(0,0,0,0.25); text-align: center; text-shadow: rgba(80,80,80,0.75) 2px 0px 0px, rgba(80,80,80,0.75) 1.75px 0.966667px 0px, rgba(80,80,80,0.75) 1.08333px 1.68333px 0px, rgba(80,80,80,0.75) 0.133333px 2px 0px, rgba(80,80,80,0.75) -0.833333px 1.81667px 0px, rgba(80,80,80,0.75) -1.6px 1.2px 0px, rgba(80,80,80,0.75) -1.98333px 0.283333px 0px, rgba(80,80,80,0.75) -1.86667px -0.7px 0px, rgba(80,80,80,0.75) -1.3px -1.51667px 0px, rgba(80,80,80,0.75) -0.416667px -1.95px 0px, rgba(80,80,80,0.75) 0.566667px -1.91667px 0px, rgba(80,80,80,0.75) 1.41667px -1.41667px 0px, rgba(80,80,80,0.75) 1.91667px -0.566667px 0px; font-family: \'MS Shell Dlg 2\', sans-serif">' + label_Powiaty_Simplified_1_eval_expression(context)) + '</div>':''), {pane: 'labels', permanent: true, offset: [0, 0], className: 'css_Powiaty_Simplified_1', direction:"center", opacity:0.9}).openTooltip(lab_centers[i]);
             labels.push(layer);
             totalMarkers += 1;
             layer.added = true;
